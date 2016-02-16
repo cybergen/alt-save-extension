@@ -1,15 +1,28 @@
-chrome.contextMenus.create(
+chrome.runtime.onMessage.addListener(function(message)
 {
-  "title": "Download This Bad-Boy",
-  "contexts":["image"],
-  "onclick": genericOnClick
+	console.log("Received message: " + message.alt + ", src: " + message.src);
+	if (message.src && altHeld)
+	{
+		downloadImage(message.src);
+	}
+	else if (message.alt)
+	{
+		setAlt(message.alt);
+	}
 });
 
-function genericOnClick(info, tab) {
+var altHeld = false;
 
-  chrome.downloads.download(
-  {
-    url : info.srcUrl,
-    filename: "pics/" + info.srcUrl.substring(info.srcUrl.lastIndexOf("/"))
-  });
+function setAlt(set)
+{
+	altHeld = set;
+}
+
+function downloadImage(imgSrc)
+{
+	chrome.downloads.download(
+	{
+		url : imgSrc,
+		filename: "pics/" + imgSrc.substring(imgSrc.lastIndexOf("/"))
+	});
 }

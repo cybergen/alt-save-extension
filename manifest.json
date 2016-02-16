@@ -22,6 +22,14 @@
   "permissions": [
     "contextMenus",
     "downloads",
-    "downloads.open"
+    "tabs"
+  ],
+
+  "content_scripts" : [
+    {
+      "matches" : ["http://*/*", "https://*/*"],
+      "js" : ["key_event.js"],
+      "run_at" : "document_end"
+    }
   ]
 }
