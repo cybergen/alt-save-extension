@@ -1,22 +1,10 @@
 chrome.runtime.onMessage.addListener(function(message)
 {
-	console.log("Received message: " + message.alt + ", src: " + message.src);
-	if (message.src && altHeld)
+	if (message.src && message.alt)
 	{
 		downloadImage(message.src);
 	}
-	else if (message.alt)
-	{
-		setAlt(message.alt);
-	}
 });
-
-var altHeld = false;
-
-function setAlt(set)
-{
-	altHeld = set;
-}
 
 function downloadImage(imgSrc)
 {
